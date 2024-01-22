@@ -1,0 +1,5 @@
+servers:
+  default:
+    url: https://bbb-dev.ahmed.blindside-ps.dev/bigbluebutton/api
+    secret: xm497Y5yv0LJUt3pk7og2jaO6HDnMEXyjJMabwEQcdk
+    version: 2.7.4

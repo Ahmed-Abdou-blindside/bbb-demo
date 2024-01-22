@@ -1,0 +1,42 @@
+<!-- app/views/meeting/create.html.erb -->
+<h1>Create Meeting</h1>
+<p>Click the link below to join the Big Blue Button meeting:</p>
+<%= link_to "Join Meeting", @join_url %>
+
+
+<h2>Create New Room:</h2>
+<form method="post" action="<%= new_room_path %>">
+  <%= hidden_field_tag :create_new_room, true %>
+  <%= submit_tag "Create New Room" %>
+</form>
+
+<h2>Saved Rooms:</h2>
+<ul>
+  <% Room.all.each do |room| %>
+    <li>
+      <%= "#{room.name} -" %>
+      <%= link_to "Join Meeting", room.join_url %>
+    </li>
+  <% end %>
+</ul>
+
+<h1>List of Recordings</h1>
+<ul>
+  <% @recordings[:recordings].each do |recording| %>
+    <li>
+        <strong>Name:</strong> <%= recording[:name] %><br>
+        <strong>Meeting ID:</strong> <%= recording[:meetingID] %><br>
+        <strong>Record ID:</strong> <%= recording[:recordID] %><br>
+      <br>
+      <br>
+    </li>
+  <% end %>
+</ul>
+
+<h1>Delete Recording by ID</h1>
+
+<%= form_tag delete_recording_path, method: :delete do %>
+  <label for="recording_id">Recording ID:</label>
+  <%= text_field_tag :recording_id %>
+  <%= submit_tag "Delete Recording" %>
+<% end %>
