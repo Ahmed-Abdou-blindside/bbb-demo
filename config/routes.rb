@@ -15,5 +15,13 @@ Rails.application.routes.draw do
 
   delete 'meeting/delete_recording', to: 'meeting#delete_recording', as: 'delete_recording'
 
+  delete 'meeting/recording_delete/:id/:record_id', to: 'meeting#delete_recording', as: 'recording_delete'
+
+  # Handles Omniauth authentication.
+  match '/auth/:provider', to: 'sessions#new', via: [:get, :post], as: :omniauth_authorize
+
+    # Handles errors.
+    get '/errors/:code', to: 'errors#index', as: :errors
+
   root 'meeting#create'
 end

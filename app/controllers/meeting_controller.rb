@@ -5,7 +5,9 @@ require_relative '../../lib/big_blue_button_helper'
 
 class MeetingController < ApplicationController
     include BigBlueButtonHelper
+    include OmniauthHelper
     before_action :prepare
+    before_action :authenticate_user!, except: %i[meeting_close], raise: false
 
     def create
         num = rand(1000)
@@ -118,6 +120,25 @@ class MeetingController < ApplicationController
         puts "Recording with ID #{recording_id} deleted successfully."
         
         redirect_to bigbluebutton_join_path
+      end
+
+      def authenticate_user!
+        @launch_nonce = params['launch_nonce']
+        return unless omniauth_provider?(:bbbltibroker)
+        # Assume user authenticated if session [params[launch_nonce]] is set
+        return if session[@launch_nonce]
+    
+        redirector = omniauth_authorize_path(:bbbltibroker, launch_nonce: params[:launch_nonce])
+        redirect_post(redirector, options: { authenticity_token: :auto }) && return if params['action'] == 'launch'
+    
+        # redirect_to(errors_path(401))
+      end
+
+      def meeting_close
+        respond_to do |format|
+          broadcast_meeting(action: 'someone left', delay: true)
+          format.html { render(:autoclose) }
+        end
       end
 
 

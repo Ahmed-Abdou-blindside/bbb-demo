@@ -51,6 +51,8 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
   gem 'rspec-rails', '~> 6.1.0'
+  gem 'faker', '~> 3.2', '>= 3.2.3'
+  gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
   gem 'factory_bot_rails', '~> 6.4', '>= 6.4.3'
 end
 
@@ -67,6 +69,21 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem 'database_cleaner-active_record'
   gem "capybara"
   gem "selenium-webdriver"
+  gem 'webmock'
 end
+
+
+gem 'json'
+
+gem 'omniauth', '>= 2.1.2'
+gem 'omniauth-oauth2', '>= 1.8.0'
+gem 'omniauth-rails_csrf_protection', '~> 1.0.1'
+gem 'repost', '~> 0.4.1'
+
+gem 'minitest'
+gem 'omniauth-bbbltibroker', git: 'https://github.com/bigbluebutton/omniauth-bbbltibroker.git', tag: '0.1.4'
+
+gem 'coveralls', require: false

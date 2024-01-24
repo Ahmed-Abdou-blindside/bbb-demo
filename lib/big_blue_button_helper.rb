@@ -29,15 +29,10 @@ module BigBlueButtonHelper
       end
       puts
     
-      if ARGV.size > 0
-        unless @config['servers'].has_key?(ARGV[0])
-          throw Exception.new("Server #{ARGV[0]} does not exists in your configuration file.")
-        end
-        server = @config['servers'][ARGV[0]]
-      else
-        key = @config['servers'].keys.first
-        server = @config['servers'][key]
-      end
+
+      key = @config['servers'].keys.first
+      server = @config['servers'][key]
+      
       server = @config['servers']['default'] # Use the 'default' server configuration
       puts "YAML LOAD FILE START"
       puts "** Using the server:"
@@ -46,5 +41,12 @@ module BigBlueButtonHelper
       puts
       @api = BigBlueButton::BigBlueButtonApi.new(server['url'], server['secret'], server['version'].to_s)
 
+    end
+
+    def initialize_bbb_api(server_config)
+      bbb_url = remove_slash(server_config['url'])
+      bbb_secret = server_config['secret']
+      bbb_version = server_config['version'].to_s
+      BigBlueButton::BigBlueButtonApi.new(bbb_url, bbb_secret, bbb_version, Rails.logger)
     end
   end
