@@ -5,43 +5,7 @@ require File.expand_path('../../../lib/big_blue_button_helper', __FILE__)
 require 'rails_helper'
 
 describe MeetingController, type: :controller do
-  # let(:rooms) { Room.all }
-  # let(:bbb_api) { BigBlueButton::BigBlueButtonApi.new('https://bbb-dev.ahmed.blindside-ps.dev/bigbluebutton/api', 'xm497Y5yv0LJUt3pk7og2jaO6HDnMEXyjJMabwEQcdk', '1.0', Rails.logger) }
 
-  # before :each do
-  #   allow_any_instance_of(MeetingController).to(receive(:authenticate_user!).and_return(:success))
-
-  #   # bbb = initialize_bbb_api({
-  #   #   'url' => 'https://bbb-dev.ahmed.blindside-ps.dev/bigbluebutton/api',
-  #   #   'secret' => 'xm497Y5yv0LJUt3pk7og2jaO6HDnMEXyjJMabwEQcdk',
-  #   #   'version' => '1.0'
-  #   # })
-
-  #   allow_any_instance_of(MeetingController).to(receive(:bbb).and_return(bbb_api))
-  #   allow_any_instance_of(NotifyMeetingWatcherJob).to(receive(:bbb).and_return(bbb_api)) # stub actioncable processes
-
-  #   @request.session['handler'] = {
-  #     user_params: {
-  #       uid: 'uid',
-  #       full_name: 'Jane Doe',
-  #       first_name: 'Jane',
-  #       last_name: 'Doe',
-  #       email: 'jane.doe@email.com',
-  #       roles: 'Administrator,Instructor,Administrator',
-
-  #     },
-  #   }
-
-  #   @user = BbbAppRooms::User.new(uid: 'uid',
-  #                                 full_name: 'Jane Doe',
-  #                                 first_name: 'Jane',
-  #                                 last_name: 'Doe',
-  #                                 email: 'jane.doe@email.com',
-  #                                 roles: 'Administrator,Instructor,Administrator')
-
-  #   # Currently a new room is created before every test. This could be optimized by creating a new room only before tests that require it.
-  #   @room = create(:room)
-  # end
 
   describe "POST #createNewRoom" do
     it "creates a new room and redirects to the join page" do
@@ -52,24 +16,6 @@ describe MeetingController, type: :controller do
       expect(response).to redirect_to(bigbluebutton_join_path)
     end
   end
-#   describe '#createNewRoom' do
-#   it 'creates a new room with room information' do
-#     expect do
-#       post(:createNewRoom, params: {
-#              room: {
-#                name: 'rspec room',
-#                description: 'description',
-#                handler: :launch_params,
-#                recording: true,
-#                wait_moderator: false,
-#                all_moderators: false,
-#              },
-#            })
-#     end.to(change { Room.count }.by(1))
-#   end
-# end
-# end
-
 
   describe 'recordings' do
     context 'GET #recording_update' do
