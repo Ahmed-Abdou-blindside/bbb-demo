@@ -21,3 +21,13 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      # Build and tag the Docker image
+      - name: Build Docker image
+        run: docker build -t ahmedabdoublindside/rails_docker:2 .
+
+      - name: Log in to Docker Hub
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Push Docker image to Docker Hub
+        run: docker push ahmedabdoublindside/rails_docker:2
