@@ -1,4 +1,5 @@
 require 'bigbluebutton_api'
+require 'remote_syslog_logger'
 
 # require '../lib/bigbluebutton_helper'
 require_relative '../../lib/big_blue_button_helper'
@@ -140,6 +141,8 @@ class MeetingController < ApplicationController
           format.html { render(:autoclose) }
         end
       end
+
+      config.logger = RemoteSyslogLogger.new('logs4.papertrailapp.com', 48234)
 
 
 end

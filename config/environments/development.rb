@@ -1,4 +1,5 @@
 require "active_support/core_ext/integer/time"
+require 'remote_syslog_logger'
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -62,6 +63,11 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  logger = RemoteSyslogLogger.new('logs4.papertrailapp.com', 48234)
+  logger.formatter = config.log_formatter
+  config.logger = ActiveSupport::TaggedLogging.new(logger)
+  # Rails.logger.info('This is a log message')
+    
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
